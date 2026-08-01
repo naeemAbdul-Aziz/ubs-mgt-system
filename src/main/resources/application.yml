@@ -114,6 +114,11 @@ springdoc:
   show-actuator: false
   default-produces-media-type: application/json
 
+management:
+  health:
+    mail:
+      enabled: false
+
 # ─── Application-specific configuration ─────────────────────────────────────
 app:
   # JWT configuration
