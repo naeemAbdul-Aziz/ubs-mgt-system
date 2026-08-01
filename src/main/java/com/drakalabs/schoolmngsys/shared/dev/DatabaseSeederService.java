@@ -35,12 +35,18 @@ public class DatabaseSeederService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        long accountCount = userAccountRepository.count();
-        if (accountCount == 0) {
-            log.info("No user accounts found — running auto-seed on startup...");
-            seedDatabase();
-        } else {
-            log.info("Database already has {} account(s) — skipping auto-seed.", accountCount);
+        try {
+            long accountCount = userAccountRepository.count();
+            if (accountCount == 0) {
+                log.info("No user accounts found — running auto-seed on startup...");
+                seedDatabase();
+            } else {
+                log.info("Database already has {} account(s) — skipping auto-seed.", accountCount);
+            }
+        } catch (Exception e) {
+            // Never let a seed failure crash the whole application.
+            // The app will start normally; seed can be triggered manually via POST /api/v1/dev/seed.
+            log.warn("Auto-seed skipped — encountered an error (app will still start): {}", e.getMessage());
         }
     }
 
