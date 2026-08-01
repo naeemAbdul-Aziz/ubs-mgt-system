@@ -1,0 +1,25 @@
+{
+  "name": "ubs-lmis-frontend",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "dev:staff": "turbo dev --filter=staff",
+    "dev:portal": "turbo dev --filter=portal"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "typescript": "^5.4.5",
+    "prettier": "^3.3.2"
+  },
+  "packageManager": "npm@10.8.1",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

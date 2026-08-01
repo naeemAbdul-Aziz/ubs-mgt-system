@@ -1,0 +1,57 @@
+services:
+  # ─────────────────────────────────────────────────────────────────────────
+  # PostgreSQL 16 — primary datastore
+  # ─────────────────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: ubs_lmis_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ubs_lmis
+      POSTGRES_USER: ubs_lmis_app
+      POSTGRES_PASSWORD: local_dev_password_change_in_prod
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ubs_lmis_app -d ubs_lmis"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # pgAdmin 4 — web-based DB admin (local dev convenience)
+  # Access: http://localhost:5050  login: admin@ubs-lmis.local / admin
+  # ─────────────────────────────────────────────────────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: ubs_lmis_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ubs-lmis.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5051:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # MailHog — local SMTP catch-all (email testing)
+  # SMTP: localhost:1025  Web UI: http://localhost:8025
+  # ─────────────────────────────────────────────────────────────────────────
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ubs_lmis_mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+
+volumes:
+  postgres_data:
+  pgadmin_data:
