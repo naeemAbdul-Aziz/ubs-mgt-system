@@ -115,6 +115,12 @@ export const AnalyticsAPI = {
   },
 };
 
+export const DevAPI = {
+  seedDatabase: async (): Promise<void> => {
+    await apiClient.post('/dev/seed');
+  },
+};
+
 export const StudentsAPI = {
   getStudents: async (query = '', grade = '', status = '', page = 0, size = 10): Promise<PageResponse<Student>> => {
     let url = `/students?query=${query}&page=${page}&size=${size}`;

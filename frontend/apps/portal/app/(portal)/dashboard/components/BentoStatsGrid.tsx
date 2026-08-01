@@ -111,7 +111,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
               fontSize: '2.25rem',
             }}
           >
-            {stats?.activeStaff !== undefined ? stats.activeStaff.toLocaleString() : '112'}
+            {stats?.totalTeachers !== undefined ? stats.totalTeachers.toLocaleString() : '112'}
           </Typography>
           <span
             style={{
