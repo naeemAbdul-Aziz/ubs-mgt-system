@@ -74,7 +74,7 @@ spring:
 
 # ─── Server ──────────────────────────────────────────────────────────────────
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${PORT:8080}
   error:
     include-message: never     # prevent Spring's default error body leaking stack traces
     include-binding-errors: never
