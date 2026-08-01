@@ -25,9 +25,8 @@ services:
       - key: JWT_SECRET
         generateValue: true
     
-  # PostgreSQL Database
-  - type: psql
-    name: ubs-db
+databases:
+  - name: ubs-db
     plan: starter
     region: frankfurt
     databaseName: ubs_prod
