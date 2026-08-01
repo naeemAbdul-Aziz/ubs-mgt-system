@@ -17,6 +17,7 @@ public class CacheConfig {
     public static final String STUDENTS_LOOKUP_CACHE = "studentsLookupCache";
 
     @Bean
+    @Primary
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager(USERS_CACHE);
         cacheManager.setCaffeine(Caffeine.newBuilder()
