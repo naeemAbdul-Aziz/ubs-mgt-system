@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { ArrowUpRight, FileText, Wallet, BookOpen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '../../providers/AuthProvider';
+import { useAuth } from '../../../providers/AuthProvider';
 
 export const QuickActionsPanel: React.FC = () => {
   const router = useRouter();
