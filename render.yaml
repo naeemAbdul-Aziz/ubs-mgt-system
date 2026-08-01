@@ -2,11 +2,9 @@ services:
   # Spring Boot Backend Service
   - type: web
     name: ubs-backend
-    runtime: image
+    runtime: docker
     plan: free
     region: frankfurt
-    image:
-      url: docker.io/library/ubs-backend:latest
     dockerfilePath: ./Dockerfile
     healthCheckPath: /actuator/health
     envVars:
