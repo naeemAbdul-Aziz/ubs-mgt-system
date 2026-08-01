@@ -11,7 +11,7 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
       - key: CORS_ALLOWED_ORIGINS
-        value: https://ubs-mgt-system.vercel.app,https://ubs-mgt-system-bqzd.vercel.app
+        value: https://ubs-mgt-system.vercel.app,https://ubs-mgt-system-bqzd.vercel.app,http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:5173
       - key: DATABASE_HOST
         fromDatabase:
           name: ubs-db
