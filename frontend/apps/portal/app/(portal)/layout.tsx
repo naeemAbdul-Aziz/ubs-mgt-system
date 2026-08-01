@@ -34,6 +34,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Wallet,
+  Terminal,
 } from 'lucide-react';
 import { useAuth } from '../providers/AuthProvider';
 
@@ -59,6 +60,7 @@ const navItems: NavItem[] = [
   { label: 'Payment Entry', href: '/fees/payments', icon: Receipt },
   { label: 'Staff Payroll', href: '/payroll', icon: Wallet },
   { label: 'Progression', href: '/progression', icon: TrendingUp },
+  { label: 'Developer API', href: '/api-docs', icon: Terminal },
 ];
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
