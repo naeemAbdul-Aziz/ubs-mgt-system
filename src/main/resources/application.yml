@@ -93,6 +93,9 @@ management:
   endpoint:
     health:
       show-details: when-authorized
+  health:
+    mail:
+      enabled: false
   info:
     env:
       enabled: true
@@ -113,11 +116,6 @@ springdoc:
     tagsSorter: alpha
   show-actuator: false
   default-produces-media-type: application/json
-
-management:
-  health:
-    mail:
-      enabled: false
 
 # ─── Application-specific configuration ─────────────────────────────────────
 app:
