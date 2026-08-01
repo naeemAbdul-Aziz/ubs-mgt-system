@@ -14,14 +14,14 @@ export const QuickActionsPanel: React.FC = () => {
   const canManageFees = perms.includes('PAYMENT_RECORD') || perms.includes('FEE_SCHEDULE_MANAGE') || perms.includes('ACCOUNT_CREATE');
 
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+    <Box style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Quick Actions Card */}
       <Box
         style={{
           backgroundColor: '#FFFFFF',
           borderRadius: '16px',
           border: '1px solid #E2E8F0',
-          padding: '32px',
+          padding: '24px',
         }}
       >
         <Typography

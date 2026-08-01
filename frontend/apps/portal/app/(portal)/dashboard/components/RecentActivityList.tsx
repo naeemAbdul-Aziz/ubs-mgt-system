@@ -26,7 +26,7 @@ export const RecentActivityList: React.FC = () => {
       {/* Header */}
       <Box
         style={{
-          padding: '24px 32px',
+          padding: '24px',
           borderBottom: '1px solid #E2E8F0',
           display: 'flex',
           justifyContent: 'space-between',
@@ -56,7 +56,7 @@ export const RecentActivityList: React.FC = () => {
             <Box
               key={item.id || index}
               style={{
-                padding: '20px 32px',
+                padding: '20px 24px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',

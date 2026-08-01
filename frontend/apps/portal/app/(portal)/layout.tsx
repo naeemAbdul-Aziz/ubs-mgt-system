@@ -273,13 +273,13 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                   <span
                     style={{
                       position: 'absolute',
-                      left: 0,
+                      left: '2px',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      height: '20px',
-                      width: '3.5px',
+                      height: '18px',
+                      width: '4px',
                       backgroundColor: '#0F172A',
-                      borderRadius: '0 4px 4px 0',
+                      borderRadius: '4px',
                     }}
                   />
                 )}

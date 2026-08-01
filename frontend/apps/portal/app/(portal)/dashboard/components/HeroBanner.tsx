@@ -10,18 +10,18 @@ export const HeroBanner: React.FC = () => {
   });
 
   return (
-    <section style={{ marginBottom: '64px', borderBottom: '1px solid #E2E8F0', paddingBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+    <section style={{ marginBottom: '32px', borderBottom: '1px solid #E2E8F0', paddingBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
       <Box style={{ maxWidth: '768px' }}>
         <Typography
           variant="h2"
           style={{
             fontFamily: '"Playfair Display", serif',
-            fontSize: '3.5rem',
+            fontSize: '3rem',
             fontWeight: 600,
             color: '#0F172A',
             letterSpacing: '-0.03em',
             lineHeight: 1.1,
-            marginBottom: '8px',
+            marginBottom: '4px',
           }}
         >
           Welcome back.
@@ -31,13 +31,13 @@ export const HeroBanner: React.FC = () => {
           variant="h6"
           style={{
             fontFamily: 'Inter, sans-serif',
-            fontSize: '1.25rem',
+            fontSize: '1.125rem',
             color: '#64748B',
             fontWeight: 400,
             lineHeight: 1.6,
           }}
         >
-          Draka Academy is currently operating at full capacity. Terminal reports are ready for review.
+          We're glad to see you again. Here is an overview of your portal today.
         </Typography>
       </Box>
 

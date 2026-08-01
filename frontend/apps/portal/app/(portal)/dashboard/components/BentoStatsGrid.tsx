@@ -13,8 +13,8 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        gap: '32px',
-        marginBottom: '64px',
+        gap: '24px',
+        marginBottom: '32px',
       }}
     >
       {/* Card 1: Total Students */}
@@ -23,7 +23,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
           backgroundColor: '#FFFFFF',
           borderRadius: '16px',
           border: '1px solid #E2E8F0',
-          padding: '32px',
+        padding: '24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
@@ -79,7 +79,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
           backgroundColor: '#FFFFFF',
           borderRadius: '16px',
           border: '1px solid #E2E8F0',
-          padding: '32px',
+        padding: '24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
@@ -135,7 +135,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
           backgroundColor: '#FFFFFF',
           borderRadius: '16px',
           border: '1px solid #E2E8F0',
-          padding: '32px',
+        padding: '24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
@@ -191,7 +191,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
           backgroundColor: '#FFFFFF',
           borderRadius: '16px',
           border: '1px solid #E2E8F0',
-          padding: '32px',
+        padding: '24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
