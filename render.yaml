@@ -2,14 +2,18 @@ services:
   # Spring Boot Backend Service
   - type: web
     name: ubs-backend
-    env: docker
+    runtime: image
     plan: free
     region: frankfurt
+    image:
+      url: docker.io/library/ubs-backend:latest
     dockerfilePath: ./Dockerfile
     healthCheckPath: /actuator/health
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://ubs-mgt-system.vercel.app,https://ubs-mgt-system-bqzd.vercel.app
       - key: DATABASE_HOST
         fromDatabase:
           name: ubs-db

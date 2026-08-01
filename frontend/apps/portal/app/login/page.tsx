@@ -99,6 +99,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showActors, setShowActors] = useState(false);
+  const [slowWarning, setSlowWarning] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,8 +109,13 @@ export default function LoginPage() {
     }
     setError(null);
     setLoading(true);
+    setSlowWarning(false);
+    // Show a cold-start warning after 5 seconds — Render free tier sleeps after
+    // 15 minutes of inactivity and can take up to 3 minutes to wake up.
+    const slowTimer = setTimeout(() => setSlowWarning(true), 5000);
     try {
       await AuthAPI.login(username, password);
+      clearTimeout(slowTimer);
       router.push('/dashboard');
     } catch (err: any) {
       setError(
@@ -118,6 +124,8 @@ export default function LoginPage() {
         'Invalid username or password. Please try again.'
       );
     } finally {
+      clearTimeout(slowTimer);
+      setSlowWarning(false);
       setLoading(false);
     }
   };
@@ -379,6 +387,20 @@ export default function LoginPage() {
               >
                 {loading ? <CircularProgress size={22} style={{ color: C.white }} /> : 'Sign In to Portal'}
               </Button>
+
+              {/* Cold-start notice */}
+              {slowWarning && (
+                <Typography style={{
+                  textAlign: 'center',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '0.78rem',
+                  color: C.textSub,
+                  marginTop: '8px',
+                  lineHeight: 1.5,
+                }}>
+                  ⏳ Waking up the server — this can take up to 2 minutes on the free tier. Please wait…
+                </Typography>
+              )}
             </Box>
           </form>
 

@@ -36,7 +36,9 @@ export const apiClient: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000,
+  // Render free tier cold-starts can take 2-3 minutes after 15min of inactivity.
+  // 60s covers the vast majority of warm requests; the login call uses 240s below.
+  timeout: 60000,
 });
 
 // Request interceptor to attach JWT token
@@ -84,7 +86,9 @@ apiClient.interceptors.response.use(
 
 export const AuthAPI = {
   login: async (username: string, password: string): Promise<TokenResponse> => {
-    const res = await apiClient.post<TokenResponse>('/auth/login', { username, password });
+    // Extended timeout for the login call — this is always the first hit after a
+    // Render free-tier cold start (service sleeps after 15min of inactivity).
+    const res = await apiClient.post<TokenResponse>('/auth/login', { username, password }, { timeout: 240000 });
     localStorage.setItem('accessToken', res.data.accessToken);
     localStorage.setItem('refreshToken', res.data.refreshToken);
     return res.data;
