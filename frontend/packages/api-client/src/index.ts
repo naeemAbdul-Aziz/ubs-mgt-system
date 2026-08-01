@@ -119,6 +119,9 @@ export const DevAPI = {
   seedDatabase: async (): Promise<void> => {
     await apiClient.post('/dev/seed');
   },
+  initializeDatabase: async (): Promise<void> => {
+    await apiClient.post('/dev/initialize');
+  },
 };
 
 export const StudentsAPI = {

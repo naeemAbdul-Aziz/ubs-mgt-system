@@ -86,13 +86,17 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
 
   const handleSeedDatabase = async () => {
     handleProfileClose();
+    const confirmed = window.confirm(
+      'This will WIPE ALL DATA and prepare the system for handover to the school.\n\nContinue?'
+    );
+    if (!confirmed) return;
     setIsSeeding(true);
     try {
-      await DevAPI.seedDatabase();
-      alert('Database seeded successfully! The page will now reload.');
+      await DevAPI.initializeDatabase();
+      alert('System initialized! All demo data has been cleared. The school can now set up their data.');
       window.location.reload();
     } catch (e: any) {
-      alert('Failed to seed database: ' + (e.response?.data?.error || e.message));
+      alert('Failed to initialize: ' + (e.response?.data?.error || e.message));
     } finally {
       setIsSeeding(false);
     }
@@ -483,9 +487,9 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 }
               }}
             >
-              <MenuItem onClick={handleSeedDatabase} disabled={isSeeding} style={{ gap: '10px', fontWeight: 500 }}>
+              <MenuItem onClick={handleSeedDatabase} disabled={isSeeding} style={{ gap: '10px', fontWeight: 500, color: '#B45309' }}>
                 <Database size={16} />
-                {isSeeding ? 'Initializing...' : 'Initialize Data'}
+                {isSeeding ? 'Clearing...' : 'Handover — Clear All Data'}
               </MenuItem>
               <MenuItem onClick={handleLogout} style={{ color: '#EF4444', gap: '10px', fontWeight: 500 }}>
                 <LogOut size={16} />

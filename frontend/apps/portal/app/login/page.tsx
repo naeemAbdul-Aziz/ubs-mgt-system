@@ -503,35 +503,6 @@ export default function LoginPage() {
             )}
           </Box>
 
-          {/* ─── Dev Tools (Seeding) ──────────────────────────────────────── */}
-          <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
-            <Button
-              variant="text"
-              onClick={async () => {
-                const { DevAPI } = await import('@ubs-lmis/api-client');
-                const prev = document.body.style.cursor;
-                document.body.style.cursor = 'wait';
-                try {
-                  await DevAPI.seedDatabase();
-                  alert('Database seeded successfully! You can now log in.');
-                } catch (e: any) {
-                  alert('Failed to seed database: ' + (e.response?.data?.error || e.message));
-                } finally {
-                  document.body.style.cursor = prev;
-                }
-              }}
-              style={{
-                color: C.textSub,
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '0.75rem',
-                textTransform: 'none',
-              }}
-              startIcon={<Shield size={14} />}
-            >
-              Initialize Database (Dev)
-            </Button>
-          </Box>
-
           {/* Footer */}
           <Typography style={{
             textAlign: 'center', marginTop: '28px',
