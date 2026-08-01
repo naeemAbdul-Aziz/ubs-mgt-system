@@ -3,7 +3,7 @@ services:
   - type: web
     name: ubs-backend
     env: docker
-    plan: starter
+    plan: free
     region: frankfurt
     dockerfilePath: ./Dockerfile
     healthCheckPath: /actuator/health
@@ -27,7 +27,7 @@ services:
     
 databases:
   - name: ubs-db
-    plan: starter
+    plan: free
     region: frankfurt
     databaseName: ubs_prod
     user: ubs_admin
