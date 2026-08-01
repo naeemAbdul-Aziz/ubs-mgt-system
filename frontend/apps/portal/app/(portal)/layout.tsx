@@ -35,8 +35,10 @@ import {
   ChevronRight,
   Wallet,
   Terminal,
+  Database,
 } from 'lucide-react';
 import { useAuth } from '../providers/AuthProvider';
+import { DevAPI } from '@ubs-lmis/api-client';
 
 const EXPANDED_DRAWER_WIDTH = 272;
 const COLLAPSED_DRAWER_WIDTH = 80;
@@ -70,6 +72,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { userProfile, loading, logout } = useAuth();
   const [bannerDismissed, setBannerDismissed] = useState(false);
+  const [isSeeding, setIsSeeding] = useState(false);
   
   const mustChangePassword = (userProfile?.mustChangePassword || false) && !bannerDismissed;
 
@@ -79,6 +82,20 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const handleLogout = async () => {
     handleProfileClose();
     await logout();
+  };
+
+  const handleSeedDatabase = async () => {
+    handleProfileClose();
+    setIsSeeding(true);
+    try {
+      await DevAPI.seedDatabase();
+      alert('Database seeded successfully! The page will now reload.');
+      window.location.reload();
+    } catch (e: any) {
+      alert('Failed to seed database: ' + (e.response?.data?.error || e.message));
+    } finally {
+      setIsSeeding(false);
+    }
   };
 
   const allowedNavItems = navItems.filter((item) => {
@@ -273,13 +290,13 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                   <span
                     style={{
                       position: 'absolute',
-                      left: '2px',
+                      left: 0,
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      height: '18px',
-                      width: '4px',
+                      height: '20px',
+                      width: '3.5px',
                       backgroundColor: '#0F172A',
-                      borderRadius: '4px',
+                      borderRadius: '0 4px 4px 0',
                     }}
                   />
                 )}
@@ -295,8 +312,9 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                     fontWeight: isActive ? 600 : 500,
                     whiteSpace: 'nowrap',
                     opacity: isCollapsed ? 0 : 1,
-                    transition: 'opacity 0.15s ease-in-out',
+                    transition: 'opacity 0.15s ease-in-out, max-width 0.15s ease-in-out',
                     overflow: 'hidden',
+                    maxWidth: isCollapsed ? 0 : '200px',
                   }}
                 >
                   {displayLabel}
@@ -343,9 +361,10 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
               display: 'flex',
               flexDirection: 'column',
               opacity: isCollapsed ? 0 : 1,
-              transition: 'opacity 0.15s ease-in-out',
+              transition: 'opacity 0.15s ease-in-out, max-width 0.15s ease-in-out',
               overflow: 'hidden',
               whiteSpace: 'nowrap',
+              maxWidth: isCollapsed ? 0 : '200px',
             }}
           >
             <Typography variant="body2" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, color: '#0F172A', whiteSpace: 'nowrap' }}>
@@ -464,6 +483,10 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 }
               }}
             >
+              <MenuItem onClick={handleSeedDatabase} disabled={isSeeding} style={{ gap: '10px', fontWeight: 500 }}>
+                <Database size={16} />
+                {isSeeding ? 'Initializing...' : 'Initialize Data'}
+              </MenuItem>
               <MenuItem onClick={handleLogout} style={{ color: '#EF4444', gap: '10px', fontWeight: 500 }}>
                 <LogOut size={16} />
                 Logout

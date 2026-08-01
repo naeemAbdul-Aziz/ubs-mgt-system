@@ -74,7 +74,7 @@ export const StudentTableFilters: React.FC<StudentTableFiltersProps> = ({
       </Box>
 
       <Typography variant="body2" style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(100, 116, 139, 0.7)', fontSize: '0.875rem' }}>
-        Showing <strong style={{ color: '#0F172A' }}>1-{totalCount}</strong> of 452 students
+        Total <strong style={{ color: '#0F172A' }}>{totalCount}</strong> student{totalCount === 1 ? '' : 's'}
       </Typography>
     </Box>
   );

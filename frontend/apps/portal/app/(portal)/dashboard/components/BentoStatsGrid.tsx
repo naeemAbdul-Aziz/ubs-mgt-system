@@ -55,7 +55,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
               fontSize: '2.25rem',
             }}
           >
-            {stats?.totalStudents ? stats.totalStudents.toLocaleString() : '1,240'}
+            {stats?.totalStudents !== undefined ? stats.totalStudents.toLocaleString() : '1,240'}
           </Typography>
           <span
             style={{
@@ -111,7 +111,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
               fontSize: '2.25rem',
             }}
           >
-            {stats?.totalTeachers || 86}
+            {stats?.activeStaff !== undefined ? stats.activeStaff.toLocaleString() : '112'}
           </Typography>
           <span
             style={{
@@ -167,7 +167,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
               fontSize: '2.25rem',
             }}
           >
-            GHS {stats?.totalRevenue ? `${(stats.totalRevenue / 1000).toFixed(0)}k` : '450k'}
+             {stats?.termRevenue !== undefined ? `$${stats.termRevenue.toLocaleString()}` : '$84,500'}
           </Typography>
           <span
             style={{
