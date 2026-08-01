@@ -26,10 +26,19 @@ import {
   StudentProgressionDecision
 } from '@ubs-lmis/types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 
-  (typeof window !== 'undefined' && window.location.hostname.includes('localhost') 
-    ? 'http://localhost:8080/api/v1' 
-    : 'https://ubs-backend-r3b2.onrender.com/api/v1');
+const normalizeApiBaseUrl = (rawBaseUrl: string): string => {
+  const trimmed = rawBaseUrl.trim().replace(/\/+$/, '');
+  if (trimmed.endsWith('/api/v1')) return trimmed;
+  if (trimmed.endsWith('/api')) return `${trimmed}/v1`;
+  return `${trimmed}/api/v1`;
+};
+
+const configuredBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ||
+  (typeof window !== 'undefined' && window.location.hostname.includes('localhost')
+    ? 'http://localhost:8080'
+    : 'https://ubs-backend-r3b2.onrender.com');
+
+const API_BASE_URL = normalizeApiBaseUrl(configuredBaseUrl);
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
