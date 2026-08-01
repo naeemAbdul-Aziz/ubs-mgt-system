@@ -20,10 +20,10 @@ public interface StudentRepository extends JpaRepository<Student, UUID> {
     Optional<Student> findByStudentNumber(String studentNumber);
 
     @Query("SELECT s FROM Student s WHERE " +
-            "(:query IS NULL OR (LOWER(s.firstName) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(s.lastName) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(s.studentNumber) LIKE LOWER(CONCAT('%', :query, '%')))) AND " +
-            "(:grade IS NULL OR s.currentClassName LIKE CONCAT(:grade, '%')) AND " +
-            "(:status IS NULL OR s.status = :status)")
+            "(:query IS NULL OR (LOWER(s.firstName) LIKE LOWER(CONCAT('%', CAST(:query AS string), '%')) OR " +
+            "LOWER(s.lastName) LIKE LOWER(CONCAT('%', CAST(:query AS string), '%')) OR " +
+            "LOWER(s.studentNumber) LIKE LOWER(CONCAT('%', CAST(:query AS string), '%')))) AND " +
+            "(:grade IS NULL OR s.currentClassName LIKE CONCAT(CAST(:grade AS string), '%')) AND " +
+            "(:status IS NULL OR s.status = CAST(:status AS string))")
     Page<Student> searchStudents(@Param("query") String query, @Param("grade") String grade, @Param("status") String status, Pageable pageable);
 }
