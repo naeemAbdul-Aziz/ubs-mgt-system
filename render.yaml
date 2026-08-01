@@ -10,11 +10,19 @@ services:
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
-      - key: DATABASE_URL
+      - key: DATABASE_HOST
         fromDatabase:
           name: ubs-db
-          property: connectionString
-      - key: DATABASE_USER
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: ubs-db
+          property: port
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: ubs-db
+          property: database
+      - key: DATABASE_USERNAME
         fromDatabase:
           name: ubs-db
           property: user
