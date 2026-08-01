@@ -167,7 +167,7 @@ export const BentoStatsGrid: React.FC<BentoStatsGridProps> = ({ stats }) => {
               fontSize: '2.25rem',
             }}
           >
-             {stats?.termRevenue !== undefined ? `$${stats.termRevenue.toLocaleString()}` : '$84,500'}
+             {stats?.totalRevenue !== undefined ? `$${stats.totalRevenue.toLocaleString()}` : '$84,500'}
           </Typography>
           <span
             style={{
