@@ -105,27 +105,26 @@ export interface Guardian {
 // 3. Academic Setup Types
 export interface AcademicYear {
   id: string;
-  yearName: string; // e.g. "2025/2026"
+  name: string;        // e.g. "2025/2026" — backend field is `name`, not `yearName`
   startDate: string;
   endDate: string;
-  isActive: boolean;
-  isClosed: boolean;
+  status: 'PLANNED' | 'ACTIVE' | 'CLOSED'; // backend enum, replaces isActive/isClosed
 }
 
 export interface Term {
   id: string;
   academicYearId: string;
-  termName: string; // e.g. "Term 1"
+  termNumber: number;  // 1, 2, or 3 — backend sends termNumber, not termName
   startDate: string;
   endDate: string;
-  isActive: boolean;
 }
 
 export interface SchoolClass {
   id: string;
   academicYearId: string;
-  className: string; // e.g. "Basic 5A"
-  gradeLevel: string;
+  classLevelId: string; // UUID of the ClassLevel reference entity
+  className: string;    // e.g. "Basic 5 A" (derived: level.name + stream)
+  stream: string;       // e.g. "A", "B", "Gold"
   capacity: number;
   enrolledCount: number;
   classTeacherName?: string;

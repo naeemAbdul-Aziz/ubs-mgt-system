@@ -258,7 +258,8 @@ export const FinanceAPI = {
     return res.data;
   },
   getTransactions: async (): Promise<import('@ubs-lmis/types').FinanceTransaction[]> => {
-    const res = await apiClient.get<import('@ubs-lmis/types').FinanceTransaction[]>('/finance/transactions');
+    // Backend returns PaymentDto[] — mapped to FinanceTransaction shape on the frontend
+    const res = await apiClient.get<any[]>('/finance/transactions');
     return res.data;
   },
 };

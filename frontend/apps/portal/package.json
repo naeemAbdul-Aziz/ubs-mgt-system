@@ -4,30 +4,31 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000",
-    "build": "next build",
+    "build": "cross-env NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS=--max-old-space-size=3072 next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@ubs-lmis/ui": "*",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^9.2.0",
+    "@mui/material": "^9.2.0",
+    "@tanstack/react-query": "^5.51.1",
     "@ubs-lmis/api-client": "*",
     "@ubs-lmis/types": "*",
+    "@ubs-lmis/ui": "*",
+    "axios": "^1.7.2",
+    "lucide-react": "^0.395.0",
     "next": "^14.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/material": "^9.2.0",
-    "@mui/icons-material": "^9.2.0",
-    "@tanstack/react-query": "^5.51.1",
-    "axios": "^1.7.2",
-    "lucide-react": "^0.395.0",
     "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "cross-env": "^10.1.0",
     "typescript": "^5.4.5"
   }
 }

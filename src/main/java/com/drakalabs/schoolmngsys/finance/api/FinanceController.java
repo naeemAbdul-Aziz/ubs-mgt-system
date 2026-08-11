@@ -1,9 +1,9 @@
 package com.drakalabs.schoolmngsys.finance.api;
 
 import com.drakalabs.schoolmngsys.finance.api.dto.BillingRunRequest;
+import com.drakalabs.schoolmngsys.finance.api.dto.InvoiceDto;
 import com.drakalabs.schoolmngsys.finance.api.dto.PaymentDto;
 import com.drakalabs.schoolmngsys.finance.api.dto.PaymentRequest;
-import com.drakalabs.schoolmngsys.finance.domain.Invoice;
 import com.drakalabs.schoolmngsys.finance.domain.Payment;
 import com.drakalabs.schoolmngsys.finance.repository.InvoiceRepository;
 import com.drakalabs.schoolmngsys.finance.repository.PaymentRepository;
@@ -46,14 +46,19 @@ public class FinanceController {
     }
 
     @GetMapping("/invoices")
-    public ResponseEntity<List<Invoice>> getInvoices() {
-        return ResponseEntity.ok(invoiceRepository.findAll());
+    public ResponseEntity<List<InvoiceDto>> getInvoices() {
+        List<InvoiceDto> dtos = invoiceRepository.findAll().stream()
+                .map(financeMapper::toDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/transactions")
-    public ResponseEntity<List<Payment>> getTransactions() {
-        // Return payments as proxy for transactions for MVP
-        return ResponseEntity.ok(paymentRepository.findAll());
+    public ResponseEntity<List<PaymentDto>> getTransactions() {
+        List<PaymentDto> dtos = paymentRepository.findAll().stream()
+                .map(financeMapper::toDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     /**
@@ -62,14 +67,15 @@ public class FinanceController {
      * Prevents cross-student data exposure.
      */
     @GetMapping("/my-invoices")
-    public ResponseEntity<List<Invoice>> getMyInvoices() {
+    public ResponseEntity<List<InvoiceDto>> getMyInvoices() {
         return SecurityUtils.getCurrentUser()
                 .map(user -> {
                     UUID studentId = user.personId();
-                    List<Invoice> myInvoices = invoiceRepository.findAll().stream()
+                    List<InvoiceDto> myInvoices = invoiceRepository.findAll().stream()
                             .filter(inv -> inv.getEnrollment() != null
                                     && inv.getEnrollment().getStudent() != null
                                     && studentId.equals(inv.getEnrollment().getStudent().getId()))
+                            .map(financeMapper::toDto)
                             .collect(Collectors.toList());
                     return ResponseEntity.ok(myInvoices);
                 })
